@@ -208,10 +208,10 @@ class DenseNet():
         return x
 
 
-def train1():
-    image = tf.placeholder(shape=[batch_size, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH], dtype=tf.float32,
+def train():
+    image = tf.placeholder(shape=[None, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH], dtype=tf.float32,
                            name='image_placeholder')
-    label = tf.placeholder(shape=[batch_size, LABEL_SIZE], dtype=tf.float32, name='label_palceholder')
+    label = tf.placeholder(shape=[None, LABEL_SIZE], dtype=tf.float32, name='label_palceholder')
 
     train_flag = tf.placeholder(dtype=tf.bool, name='flag_placeholder')
 
@@ -272,4 +272,4 @@ if __name__ == '__main__':
     trainRecords = r'../data/training.tfrecord'
     img, label = read_example(trainRecords)
 
-    train1()
+    train()

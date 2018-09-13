@@ -264,7 +264,8 @@ def train():
         print(label)
         print("y1:")
         print(y)
-        loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(label, y))
+        # loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels = label, logits = y))
+        loss = tf.reduce_mean(tf.square(label - y))
 
     opt = tf.train.AdamOptimizer(learning_rate=init_learning_rate)
 

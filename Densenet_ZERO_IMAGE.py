@@ -49,7 +49,12 @@ def read_example(filename):
     image = image / 255.0
 
     label_raw = tf.decode_raw(parsed_example['label'], tf.float32)
-    label = tf.reshape(label_raw, [batch_size, LABEL_SIZE])
+    label = tf.cast(tf.reshape(label_raw, [batch_size, LABEL_SIZE]),tf.float32)
+
+    print("image:")
+    print(image)
+    print("label:")
+    print(label)
 
     return image, label
 
@@ -216,9 +221,9 @@ def train1():
     with tf.variable_scope('net'):
         y = DenseNet(image, nb_block, growth_k, train_flag).model
     with tf.name_scope('loss'):
-        print("AAA")
+        print("label1:")
         print(label)
-        print("BBB")
+        print("y1:")
         print(y)
         loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(label, y))
 

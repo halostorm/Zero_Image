@@ -5,10 +5,9 @@ import numpy as np
 from tqdm import tqdm
 import sys
 import os
-import scipy
+import scipy.misc
 import time
 from PIL import Image
-import matplotlib.pyplot as plt
 
 '''tfrecord 写入数据.
 将图片数据写入 tfrecord 文件。以 MNIST png格式数据集为例。
@@ -62,21 +61,23 @@ def convert_tfrecord_dataset(dataset_dir, tfrecord_name, tfrecord_path='../data/
             line = line.split("\t")
             imagePath = dataset_dir + line[0]
             # print(imagePath)
-            image = plt.imread(imagePath)  # type(image) must be array
+            image = scipy.misc.imread(imagePath)
             # print(np.shape(image))
             img = image.tobytes()
-
 
             label_id = line[1:31]
 
             label = []
-
             for i in label_id:
                 label.append(np.float32(i))
 
             label = np.array(label)
 
+            print(label)
+
             label = label.tostring()
+
+            print(label)
 
             example = tf.train.Example(
                 features=tf.train.Features(

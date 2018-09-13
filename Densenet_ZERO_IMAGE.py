@@ -254,11 +254,11 @@ def train1():
             print('False')
 
     for i in range(total_epochs):
-        image_data, label_data = sess.run([batch_image, batch_label])
+        # image_data, label_data = sess.run([batch_image, batch_label])
 
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],
-                                                   feed_dict={train_flag: True, image: image_data,
-                                                              label: label_data})
+                                                   feed_dict={train_flag: True, image: batch_image,
+                                                              label: batch_label})
         # print summary_str
         writer.add_summary(summary_str, i)
 

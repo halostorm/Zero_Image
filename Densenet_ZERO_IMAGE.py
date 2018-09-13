@@ -67,7 +67,7 @@ def read_and_decode(filename):
     _, serialized_example = reader.read(filename_queue)  # 返回文件名和文件
     features = tf.parse_single_example(serialized_example,
                                        features={
-                                           'label': tf.FixedLenFeature([], tf.float32),
+                                           'label': tf.FixedLenFeature([30], tf.float32),
                                            'img': tf.FixedLenFeature([], tf.string),
                                        })
 

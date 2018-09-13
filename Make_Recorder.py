@@ -66,12 +66,11 @@ def convert_tfrecord_dataset(dataset_dir, tfrecord_name, tfrecord_path='../data/
             img = img_raw.tobytes()  # 将图片转化为二进制格式
 
             label_id = line[1:]
-            label_id1 = []
 
-            for i in label_id:
-                label_id1.append(tf.float32(i))
+            label = np.zeros([30], dtype=np.float32)
 
-            label = np.array(label_id1)
+            for i in range(0,len(label_id)):
+                label[i] = (np.float32(label_id[i]))
 
             label = label.tostring()
 

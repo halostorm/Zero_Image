@@ -56,6 +56,8 @@ def convert_tfrecord_dataset(dataset_dir, tfrecord_name, tfrecord_path='../data/
         os.makedirs(os.path.dirname(tfrecord_path))
     tfrecord_file = os.path.join(tfrecord_path, tfrecord_name)
 
+    print("aaa")
+
     with tf.python_io.TFRecordWriter(tfrecord_file) as writer:
         for line in open(TRAINING_COM, 'r'):
             line = line.split("\t")

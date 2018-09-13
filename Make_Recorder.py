@@ -73,11 +73,11 @@ def convert_tfrecord_dataset(dataset_dir, tfrecord_name, tfrecord_path='../data/
 
             label = np.array(label)
 
-            print(label)
+            # print(label)
 
             label = label.tostring()
 
-            print(label)
+            # print(label)
 
             example = tf.train.Example(
                 features=tf.train.Features(

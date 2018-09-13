@@ -41,7 +41,7 @@ def read_example(filename):
                                    capacity=min_queue_examples + 100 * batch_size, min_after_dequeue=min_queue_examples,
                                    num_threads=2)
 
-    parsed_example = tf.parse_example(batch, features={'image': tf.FixedLenFeature([], tf.string),
+    parsed_example = tf.parse_example(batch, features={'image': tf.FixedLenFeature([12288], tf.string),
                                                        'label': tf.FixedLenFeature([30], tf.float32)})
 
     image_raw = tf.decode_raw(parsed_example['image'], tf.uint8)

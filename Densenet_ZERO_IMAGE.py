@@ -59,6 +59,28 @@ def read_example(filename):
     return image, label
 
 
+def read_and_decode(filename):
+    # 根据文件名生成一个队列
+    filename_queue = tf.train.string_input_producer([filename])
+
+    reader = tf.TFRecordReader()
+    _, serialized_example = reader.read(filename_queue)  # 返回文件名和文件
+    features = tf.parse_single_example(serialized_example,
+                                       features={
+                                           'label': tf.FixedLenFeature([], tf.float32),
+                                           'img': tf.FixedLenFeature([], tf.string),
+                                       })
+
+    img = tf.decode_raw(features['img'], tf.uint8)
+    img = tf.reshape(img, [IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH])
+    img = tf.cast(img, tf.float32) * (1. / 255) - 0.5
+
+    label_raw = features['label']
+    label = tf.cast(tf.reshape(label_raw, [LABEL_SIZE]), tf.float32)
+
+    return img, label
+
+
 def conv_layer(input, filter, kernel, stride=1, layer_name="conv"):
     with tf.name_scope(layer_name):
         network = tf.layers.conv2d(inputs=input, filters=filter, kernel_size=kernel, strides=stride, padding='SAME')
@@ -215,11 +237,28 @@ def train():
 
     train_flag = tf.placeholder(dtype=tf.bool, name='flag_placeholder')
 
+    # init = tf.initialize_all_variables()
+    #
+    # with tf.Session() as sess:
+    #     sess.run(init)
+    #     threads = tf.train.start_queue_runners(sess=sess)
+    #     for i in range(3):
+    #         val, l = sess.run([img_batch, label_batch])
+    #         # 我们也可以根据需要对val， l进行处理
+    #         # l = to_categorical(l, 12)
+    #         print(val.shape, l)
+
     with tf.name_scope('batch'):
-        batch_image, batch_label = read_example(trainRecords)
+        imgs, labels = read_and_decode("../data/train.tfrecords")
+
+        # 使用shuffle_batch可以随机打乱输入
+        img_batch, label_batch = tf.train.shuffle_batch([imgs, labels],
+                                                        batch_size=batch_size, capacity=2000,
+                                                        min_after_dequeue=1000)
 
     with tf.variable_scope('net'):
         y = DenseNet(image, nb_block, growth_k, train_flag).model
+
     with tf.name_scope('loss'):
         print("label1:")
         print(label)
@@ -254,7 +293,7 @@ def train():
             print('False')
 
     for i in range(total_epochs):
-        image_data, label_data = sess.run([batch_image, batch_label])
+        image_data, label_data = sess.run([img_batch, label_batch])
 
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],
                                                    feed_dict={train_flag: True, image: image_data,
@@ -305,6 +344,6 @@ if __name__ == '__main__':
     print()
 
     trainRecords = r'../data/training.tfrecord'
-    img, label = read_example(trainRecords)
+    # img, label = read_example(trainRecords)
 
     train()

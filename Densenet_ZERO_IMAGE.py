@@ -42,7 +42,7 @@ def read_example(filename):
                                    num_threads=2)
 
     parsed_example = tf.parse_example(batch, features={'image': tf.FixedLenFeature([], tf.string),
-                                                       'label': tf.FixedLenFeature([], tf.string)})
+                                                       'label': tf.FixedLenFeature([], tf.float32)})
 
     image_raw = tf.decode_raw(parsed_example['image'], tf.uint8)
     image = tf.cast(tf.reshape(image_raw, [batch_size, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH]), tf.float32)

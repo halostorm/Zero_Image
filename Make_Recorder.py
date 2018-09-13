@@ -61,33 +61,40 @@ def convert_tfrecord_dataset(dataset_dir, tfrecord_name, tfrecord_path='../data/
             line = line.split("\t")
             imagePath = dataset_dir + line[0]
             # print(imagePath)
-            image = scipy.misc.imread(imagePath)
-            # print(np.shape(image))
-            img = image.tobytes()
+            image = tf.read_file(imagePath)
+            image = tf.image.decode_jpeg(image)
 
-            label_id = line[1:31]
+            with tf.Session() as sess:
+                image = sess.run(image)
+                shape = image.shape
+                # 将图片转换成 string
+                image_data = image.tostring()
+                # print(type(image))
+                # print(len(image_data))
+                name = bytes("N", encoding='utf8')
+                # print(type(name))
 
-            label = []
-            for i in label_id:
-                label.append(np.float32(i))
+                label_id = line[1:31]
 
-            label = np.array(label)
+                label = []
+                for i in label_id:
+                    label.append(float(i))
 
-            # print(label)
+                # print(label)
 
-            label = label.tostring()
+                example = tf.train.Example(
+                    features=tf.train.Features(
+                        feature={
+                            'name': tf.train.Feature(bytes_list=tf.train.BytesList(value=[name])),
+                            'shape': tf.train.Feature(
+                                int64_list=tf.train.Int64List(value=[shape[0], shape[1], shape[2]])),
+                            'image': tf.train.Feature(bytes_list=tf.train.BytesList(value=[image_data])),
+                            'label': tf.train.Feature(
+                                float_list=tf.train.FloatList(value=label)),
+                        }))
+                serialized = example.SerializeToString()
 
-            # print(label)
-
-            example = tf.train.Example(
-                features=tf.train.Features(
-                    feature={
-                        'image': bytes_feature(img),
-                        'label': bytes_feature(label)
-                    }))
-            serialized = example.SerializeToString()
-
-            writer.write(serialized)
+                writer.write(serialized)
     print('\nFinished writing data to tfrecord files.')
 
 

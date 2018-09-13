@@ -28,7 +28,7 @@ def create_record(img_folder):
             # print(img_raw)
             example = tf.train.Example(
                 features=tf.train.Features(feature={
-                    "label": tf.train.Feature(float_list=tf.train.FloatList(value=[label])),
+                    "label": tf.train.Feature(float_list=tf.train.FloatList(value=label)),
                     'img': tf.train.Feature(bytes_list=tf.train.BytesList(value=[img_raw]))
                 }))
             writer.write(example.SerializeToString())

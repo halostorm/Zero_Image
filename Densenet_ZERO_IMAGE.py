@@ -20,7 +20,6 @@ nesterov_momentum = 0.9
 weight_decay = 1e-4
 
 # Label & batch_size
-class_num = 10
 batch_size = 10
 
 # Image params
@@ -29,34 +28,6 @@ IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH = 64, 64, 3
 LABEL_SIZE = 30
 
 total_epochs = 20
-
-
-def read_example(filename):
-    reader = tf.TFRecordReader()
-    filename_queue = tf.train.string_input_producer([filename], num_epochs=None)
-    _, serialized_example = reader.read(filename_queue)
-
-    min_queue_examples = 10
-    batch = tf.train.shuffle_batch([serialized_example], batch_size=batch_size,
-                                   capacity=min_queue_examples + 100 * batch_size, min_after_dequeue=min_queue_examples,
-                                   num_threads=2)
-
-    parsed_example = tf.parse_example(batch, features={'image': tf.FixedLenFeature([12288], tf.string),
-                                                       'label': tf.FixedLenFeature([30], tf.float32)})
-
-    image_raw = tf.decode_raw(parsed_example['image'], tf.uint8)
-    image = tf.cast(tf.reshape(image_raw, [batch_size, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH]), tf.float32)
-    image = image / 255.0
-
-    label_raw = parsed_example['label']
-    label = tf.cast(tf.reshape(label_raw, [batch_size, LABEL_SIZE]), tf.float32)
-
-    print("image:")
-    print(image)
-    print("label:")
-    print(label)
-
-    return image, label
 
 
 def read_and_decode(filename):
@@ -139,7 +110,7 @@ def Concatenation(layers):
 
 
 def Linear(x):
-    return tf.layers.dense(inputs=x, units=class_num, name='linear')
+    return tf.layers.dense(inputs=x, units=30, name='linear')
 
 
 class DenseNet():
@@ -237,17 +208,6 @@ def train():
 
     train_flag = tf.placeholder(dtype=tf.bool, name='flag_placeholder')
 
-    # init = tf.initialize_all_variables()
-    #
-    # with tf.Session() as sess:
-    #     sess.run(init)
-    #     threads = tf.train.start_queue_runners(sess=sess)
-    #     for i in range(3):
-    #         val, l = sess.run([img_batch, label_batch])
-    #         # 我们也可以根据需要对val， l进行处理
-    #         # l = to_categorical(l, 12)
-    #         print(val.shape, l)
-
     with tf.name_scope('batch'):
         imgs, labels = read_and_decode("../data/train.tfrecords")
 
@@ -259,19 +219,18 @@ def train():
     with tf.variable_scope('net'):
         y = DenseNet(image, nb_block, growth_k, train_flag).model
 
+
     with tf.name_scope('loss'):
-        print("label1:")
-        print(label)
-        print("y1:")
-        print(y)
         # loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels = label, logits = y))
         loss = tf.reduce_mean(tf.square(label - y))
+
 
     opt = tf.train.AdamOptimizer(learning_rate=init_learning_rate)
 
     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
     with tf.control_dependencies(update_ops):
         train_step = opt.minimize(loss)
+
 
     sess = tf.Session()
     sess.run(tf.global_variables_initializer())
@@ -294,6 +253,8 @@ def train():
             print('False')
 
     for i in range(total_epochs):
+        print(str(i) + ":\t epoch")
+
         image_data, label_data = sess.run([img_batch, label_batch])
 
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],
@@ -307,44 +268,6 @@ def train():
     saver.save(sess=sess, save_path='./model/dense.ckpt')
 
 
-def read_iamge(Root_path, batch_size):
-    imagepaths = []
-    labels = []
-    label = 0
-    classes = sorted(os.walk(Root_path).__next__()[1])
-    for c in classes:
-        c_dir = os.path.join(Root_path, c)
-        walk = os.walk(c_dir).__next__()[2]
-        for sample in walk:
-            if sample.endswith('.jpg') and sample.endswith('.jpeg'):
-                imagepaths.append(os.path.join(c_dir, sample))
-                labels.append(label)
-        label += 1
-
-    # 将iamgepaths 和 labels 转换为tf可以处理的格式
-    imagepaths = tf.convert_to_tensor(imagepaths, tf.string)
-    labels = tf.convert_to_tensor(labels, tf.int32)
-
-    # 建立 Queue
-    imagepath, label = tf.train.slice_input_producer([imagepaths, labels], shuffle=True)
-
-    # 读取图片，并进行解码
-    image = tf.read_file(imagepath)
-    image = tf.image.decode_jpeg(image, channels=IMAGE_DEPTH)
-
-    # 对图片进行裁剪和正则化（将数值[0,255]转化为[-1,1]）
-    image = tf.image.resize_images(image, size=[IMAGE_HEIGHT, IMAGE_WIDTH])
-    image = image * 1.0 / 127.5 - 1.0
-
-    # 创建 batch
-    X, Y = tf.train.batch([image, label], batch_size=batch_size, num_threads=4, capacity=batch_size * 8)
-    return X, Y
-
-
 if __name__ == '__main__':
-    print()
-
-    trainRecords = r'../data/training.tfrecord'
-    # img, label = read_example(trainRecords)
-
+    # trainRecords = r'../data/training.tfrecord'
     train()

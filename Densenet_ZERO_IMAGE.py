@@ -266,6 +266,41 @@ def train():
 
     saver.save(sess=sess, save_path='./model/dense.ckpt')
 
+
+def read_iamge(Root_path, batch_size):
+    imagepaths = []
+    labels = []
+    label = 0
+    classes = sorted(os.walk(Root_path).__next__()[1])
+    for c in classes:
+        c_dir = os.path.join(Root_path, c)
+        walk = os.walk(c_dir).__next__()[2]
+        for sample in walk:
+            if sample.endswith('.jpg') and sample.endswith('.jpeg'):
+                imagepaths.append(os.path.join(c_dir, sample))
+                labels.append(label)
+        label += 1
+
+    # 将iamgepaths 和 labels 转换为tf可以处理的格式
+    imagepaths = tf.convert_to_tensor(imagepaths, tf.string)
+    labels = tf.convert_to_tensor(labels, tf.int32)
+
+    # 建立 Queue
+    imagepath, label = tf.train.slice_input_producer([imagepaths, labels], shuffle=True)
+
+    # 读取图片，并进行解码
+    image = tf.read_file(imagepath)
+    image = tf.image.decode_jpeg(image, channels=IMAGE_DEPTH)
+
+    # 对图片进行裁剪和正则化（将数值[0,255]转化为[-1,1]）
+    image = tf.image.resize_images(image, size=[IMAGE_HEIGHT, IMAGE_WIDTH])
+    image = image * 1.0 / 127.5 - 1.0
+
+    # 创建 batch
+    X, Y = tf.train.batch([image, label], batch_size=batch_size, num_threads=4, capacity=batch_size * 8)
+    return X, Y
+
+
 if __name__ == '__main__':
     print()
 

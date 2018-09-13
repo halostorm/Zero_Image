@@ -87,12 +87,8 @@ def convert_tfrecord_dataset(dataset_dir, tfrecord_name, tfrecord_path='../data/
                 example = tf.train.Example(
                     features=tf.train.Features(
                         feature={
-                            'name': tf.train.Feature(bytes_list=tf.train.BytesList(value=[name])),
-                            'shape': tf.train.Feature(
-                                int64_list=tf.train.Int64List(value=[shape[0], shape[1], shape[2]])),
                             'image': tf.train.Feature(bytes_list=tf.train.BytesList(value=[image_data])),
-                            'label': tf.train.Feature(
-                                float_list=tf.train.FloatList(value=label)),
+                            'label': tf.train.Feature(float_list=tf.train.FloatList(value=label)),
                         }))
                 serialized = example.SerializeToString()
 

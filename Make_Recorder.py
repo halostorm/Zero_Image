@@ -80,7 +80,7 @@ def convert_tfrecord_dataset(dataset_dir, tfrecord_name, tfrecord_path='../data/
                 for i in label_id:
                     label.append(float(i))
 
-                print(label)
+                # print(label)
 
                 example = tf.train.Example(
                     features=tf.train.Features(

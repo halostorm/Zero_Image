@@ -49,7 +49,7 @@ def read_example(filename):
     image = image / 255.0
 
     label_raw = tf.decode_raw(parsed_example['label'], tf.float32)
-    label = tf.cast(tf.reshape(label_raw, [batch_size, LABEL_SIZE]),tf.float32)
+    label = tf.cast(tf.reshape(label_raw, [batch_size, LABEL_SIZE]), tf.float32)
 
     print("image:")
     print(image)
@@ -238,27 +238,27 @@ def train1():
     coord = tf.train.Coordinator()
     saver = tf.train.Saver()
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-    writer = tf.summary.FileWriter("./logs", sess.graph)
+    writer = tf.summary.FileWriter("../logs", sess.graph)
     if False:
-        checkpoint_dir = '/home/user/Desktop/mycode/yolo2-master/model/'
+        checkpoint_dir = './model/'
 
         ckpt = tf.train.get_checkpoint_state(checkpoint_dir)
         # print ckpt
         if ckpt and ckpt.model_checkpoint_path:
 
             # ckpt_name = os.path.basename(ckpt.model_checkpoint_path)
-            ckpt_name = 'yolo-4000'
+            ckpt_name = 'dense.ckpt'
             saver.restore(sess, os.path.join(checkpoint_dir, ckpt_name))
             print('True')
         else:
             print('False')
 
     for i in range(total_epochs):
-        # image_data, label_data = sess.run([batch_image, batch_label])
+        image_data, label_data = sess.run([batch_image, batch_label])
 
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],
-                                                   feed_dict={train_flag: True, image: batch_image,
-                                                              label: batch_label})
+                                                   feed_dict={train_flag: True, image: image_data,
+                                                              label: label_data})
         # print summary_str
         writer.add_summary(summary_str, i)
 

@@ -42,4 +42,4 @@ def create_record(image_name, label_vect, save_dir, parts):
 
 if __name__ == '__main__':
     image_name, label_vect = readlist('../data/com.txt')
-    create_record(image_name, label_vect, '../records/', 12)
+    create_record(image_name, label_vect, '../records/', 2)

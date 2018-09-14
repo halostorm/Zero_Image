@@ -214,8 +214,8 @@ def train():
         img_batch, label_batch = tf.train.shuffle_batch([imgs, labels],
                                                         batch_size=batch_size,
                                                         num_threads = 4,
-                                                        capacity=batch_size*4+200,
-                                                        min_after_dequeue=200)
+                                                        capacity=batch_size*4+20000,
+                                                        min_after_dequeue=20000)
 
     with tf.variable_scope('net'):
         y = DenseNet(x = image, nb_blocks=nb_block, filters = growth_k, training = tf.constant(True, dtype=tf.bool)).model
@@ -252,30 +252,32 @@ def train():
             print('True')
         else:
             print('False')
-
-    for i in range(total_epochs):
-        print(str(i) + ":\t epoch")
-
-        image_data, label_data = sess.run([img_batch, label_batch])
-
-        print("image data")
-        print(image.shape)
-        print(image_data.shape)
-        print("label data")
-        print(label.shape)
-        print(label_data.shape)
-
-        _, loss_data, data, summary_y = sess.run([train_step, loss, y, y_sum],
-                                                   feed_dict={image: image_data,
+    i = 0
+    try:
+        while not coord.should_stop():
+            print(str(i) + ":\t epoch")
+            image_data, label_data = sess.run([img_batch, label_batch])
+            print("image data")
+            print(image.shape)
+            print(image_data.shape)
+            print("label data")
+            print(label.shape)
+            print(label_data.shape)
+            _, loss_data, data, summary_y = sess.run([train_step, loss, y, y_sum],
+                                                  feed_dict={image: image_data,
                                                               label: label_data})
-        # print summary_str
-        writer.add_summary(summary_y, i)
-
-        print('iter: %i, loss: %f' % (i, loss_data))
-
+            # print summary_str
+            writer.add_summary(summary_y, i)
+            print('iter: %i, loss: %f' % (i, loss_data))
+    except tf.errors.OutOfRangeError:
+        print('--------------epoch limit -------------')
+    finally:
+        coord.request_stop()
     saver.save(sess=sess, save_path='./model/dense.ckpt')
-
-
+    print('ok')
+    #coord.join(threads)
+    #sess.close()
+     
 if __name__ == '__main__':
     # trainRecords = r'../data/training.tfrecord'
     train()

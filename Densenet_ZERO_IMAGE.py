@@ -20,28 +20,30 @@ nesterov_momentum = 0.9
 weight_decay = 1e-4
 
 # Label & batch_size
-batch_size = 24
+batch_size = 10
 
 # Image params
 IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH = 64, 64, 3
 
 LABEL_SIZE = 30
 
+All_size = 38221
+
 total_epochs = 30
 
 
 def read_and_decode(tf_folder):
-    filepaths = [os.path.join(tf_folder,file) for file in os.listdir(tf_folder)]
+    filepaths = [os.path.join(tf_folder, file) for file in os.listdir(tf_folder)]
     # 根据文件名生成一个队列
     filename_queue = tf.train.string_input_producer(filepaths)
     reader = tf.TFRecordReader()
     _, serialized_example = reader.read(filename_queue)
-    features = tf.parse_single_example( serialized_example, features={
-                        'image': tf.FixedLenFeature([], tf.string),
-                        'label': tf.FixedLenFeature([], tf.string)
-                        })
-    image = tf.decode_raw( features['image'], tf.uint8 )
-    label = tf.decode_raw( features['label'], tf.float64 )
+    features = tf.parse_single_example(serialized_example, features={
+        'image': tf.FixedLenFeature([], tf.string),
+        'label': tf.FixedLenFeature([], tf.string)
+    })
+    image = tf.decode_raw(features['image'], tf.uint8)
+    label = tf.decode_raw(features['label'], tf.float64)
     image = tf.reshape(image, [IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH])
     image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
     label = tf.cast(tf.reshape(label, [30]), tf.float32)
@@ -188,7 +190,7 @@ class DenseNet():
 
         x = flatten(x)
 
-        #x = dense_layer(x, LABEL_SIZE)
+        # x = dense_layer(x, LABEL_SIZE)
 
         print("output")
         print(x)
@@ -211,27 +213,26 @@ def train():
         imgs, labels = read_and_decode('../records/')
 
         # 使用shuffle_batch可以随机打乱输入
+        min_after_dequeue = 10
         img_batch, label_batch = tf.train.shuffle_batch([imgs, labels],
                                                         batch_size=batch_size,
-                                                        num_threads = 4,
-                                                        capacity=batch_size*4+200,
-                                                        min_after_dequeue=200)
+                                                        num_threads=4,
+                                                        capacity=batch_size * 100 + min_after_dequeue,
+                                                        min_after_dequeue=min_after_dequeue)
 
     with tf.variable_scope('net'):
-        y = DenseNet(x = image, nb_blocks=nb_block, filters = growth_k, training = tf.constant(True, dtype=tf.bool)).model
+        y = DenseNet(x=image, nb_blocks=nb_block, filters=growth_k, training=tf.constant(True, dtype=tf.bool)).model
 
-    y_sum = tf.summary.histogram('y',y)
+    y_sum = tf.summary.histogram('y', y)
     with tf.name_scope('loss'):
         # loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels = label, logits = y))
         loss = tf.reduce_mean(tf.square(label - y))
-
 
     opt = tf.train.AdamOptimizer(learning_rate=init_learning_rate)
 
     update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
     with tf.control_dependencies(update_ops):
         train_step = opt.minimize(loss)
-
 
     sess = tf.Session()
     sess.run(tf.global_variables_initializer())
@@ -259,15 +260,13 @@ def train():
         image_data, label_data = sess.run([img_batch, label_batch])
 
         print("image data")
-        print(image.shape)
         print(image_data.shape)
         print("label data")
-        print(label.shape)
         print(label_data.shape)
 
         _, loss_data, data, summary_y = sess.run([train_step, loss, y, y_sum],
-                                                   feed_dict={image: image_data,
-                                                              label: label_data})
+                                                 feed_dict={image: image_data,
+                                                            label: label_data})
         # print summary_str
         writer.add_summary(summary_y, i)
 

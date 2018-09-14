@@ -41,10 +41,10 @@ def read_and_decode(tf_folder):
                         'label': tf.FixedLenFeature([], tf.string)
                         })
     image = tf.decode_raw( features['image'], tf.uint8 )
-    label = tf.decode_raw( features['label'], tf.float64 )
+    label = tf.decode_raw( features['label'], tf.float32 )
     image = tf.reshape(image, [64, 64, 3])
     image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-    label = tf.cast(tf.reshape(label, [30]), tf.float64)
+    label = tf.cast(tf.reshape(label, [30]), tf.float32)
     return image, label
 
 
@@ -256,9 +256,9 @@ def train():
         image_data, label_data = sess.run([img_batch, label_batch])
 
         print("image data")
-        print(image_data)
+        print(image_data.shape)
         print("label data")
-        print(label_data)
+        print(label_data.shape)
 
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],
                                                    feed_dict={train_flag: True, image: image_data,

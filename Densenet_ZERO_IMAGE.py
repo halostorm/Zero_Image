@@ -30,26 +30,22 @@ LABEL_SIZE = 30
 total_epochs = 20
 
 
-def read_and_decode(filename):
+def read_and_decode(tf_folder):
+    filepaths = [os.path.join(tf_folder,file) for file in os.listdir(tf_folder)]
     # 根据文件名生成一个队列
-    filename_queue = tf.train.string_input_producer([filename])
-
+    filename_queue = tf.train.string_input_producer(filepaths)
     reader = tf.TFRecordReader()
-    _, serialized_example = reader.read(filename_queue)  # 返回文件名和文件
-    features = tf.parse_single_example(serialized_example,
-                                       features={
-                                           'label': tf.FixedLenFeature([30], tf.float32),
-                                           'img': tf.FixedLenFeature([], tf.string),
-                                       })
-
-    img = tf.decode_raw(features['img'], tf.uint8)
-    img = tf.reshape(img, [IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH])
-    img = tf.cast(img, tf.float32) * (1. / 255) - 0.5
-
-    label_raw = features['label']
-    label = tf.cast(tf.reshape(label_raw, [LABEL_SIZE]), tf.float32)
-
-    return img, label
+    _, serialized_example = reader.read(filename_queue)
+    features = tf.parse_single_example( serialized_example, features={
+                        'image': tf.FixedLenFeature([], tf.string),
+                        'label': tf.FixedLenFeature([], tf.string)
+                        })
+    image = tf.decode_raw( features['image'], tf.uint8 )
+    label = tf.decode_raw( features['label'], tf.float64 )
+    image = tf.reshape(image, [64, 64, 3])
+    image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
+    label = tf.cast(tf.reshape(label, [30]), tf.float64)
+    return image, label
 
 
 def conv_layer(input, filter, kernel, stride=1, layer_name="conv"):
@@ -209,12 +205,14 @@ def train():
     train_flag = tf.placeholder(dtype=tf.bool, name='flag_placeholder')
 
     with tf.name_scope('batch'):
-        imgs, labels = read_and_decode("../data/train.tfrecords")
+        imgs, labels = read_and_decode('../records/')
 
         # 使用shuffle_batch可以随机打乱输入
         img_batch, label_batch = tf.train.shuffle_batch([imgs, labels],
-                                                        batch_size=batch_size, capacity=2000,
-                                                        min_after_dequeue=1000)
+                                                        batch_size=batch_size,
+                                                        num_threads = 4,
+                                                        capacity=1200,
+                                                        min_after_dequeue=500)
 
     with tf.variable_scope('net'):
         y = DenseNet(image, nb_block, growth_k, train_flag).model

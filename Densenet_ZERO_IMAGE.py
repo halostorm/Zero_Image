@@ -9,7 +9,7 @@ from tensorflow.contrib.framework import arg_scope
 import numpy as np
 
 # Hyper parameter
-growth_k = 12
+growth_k = 24
 nb_block = 2  # how many (dense block + Transition Layer) ?
 init_learning_rate = 1e-4
 epsilon = 1e-8  # AdamOptimizer epsilon
@@ -20,7 +20,7 @@ nesterov_momentum = 0.9
 weight_decay = 1e-4
 
 # Label & batch_size
-batch_size = 10
+batch_size = 24
 
 # Image params
 IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH = 64, 64, 3
@@ -42,7 +42,7 @@ def read_and_decode(tf_folder):
                         })
     image = tf.decode_raw( features['image'], tf.uint8 )
     label = tf.decode_raw( features['label'], tf.float64 )
-    image = tf.reshape(image, [12288])
+    image = tf.reshape(image, [IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH])
     image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
     label = tf.cast(tf.reshape(label, [30]), tf.float32)
     return image, label
@@ -201,10 +201,8 @@ class DenseNet():
 
 
 def train():
-    x = tf.placeholder(tf.float32, shape=[None, 12288])
-    image  = tf.reshape(x, [-1, 64, 64, 3])
-    # image = tf.placeholder(shape=[None, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH], dtype=tf.float32,
-    #                        name='image_placeholder')
+    image = tf.placeholder(shape=[None, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH], dtype=tf.float32,
+                           name='image_placeholder')
     label = tf.placeholder(shape=[None, LABEL_SIZE], dtype=tf.float32, name='label_palceholder')
 
     train_flag = tf.placeholder(dtype=tf.bool, name='flag_placeholder')
@@ -216,7 +214,7 @@ def train():
         img_batch, label_batch = tf.train.shuffle_batch([imgs, labels],
                                                         batch_size=batch_size,
                                                         num_threads = 4,
-                                                        capacity=1200,
+                                                        capacity=batch_size*100+500,
                                                         min_after_dequeue=500)
 
     with tf.variable_scope('net'):
@@ -268,7 +266,7 @@ def train():
         print(label_data.shape)
 
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],
-                                                   feed_dict={train_flag: True, x: image_data,
+                                                   feed_dict={train_flag: True, image: image_data,
                                                               label: label_data})
         # print summary_str
         writer.add_summary(summary_str, i)

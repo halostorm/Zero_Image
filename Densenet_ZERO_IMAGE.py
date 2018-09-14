@@ -217,7 +217,7 @@ def train():
         img_batch, label_batch = tf.train.shuffle_batch([imgs, labels],
                                                         batch_size=batch_size,
                                                         num_threads=4,
-                                                        capacity=batch_size * 100 + min_after_dequeue,
+                                                        capacity=batch_size * 1000 + min_after_dequeue,
                                                         min_after_dequeue=min_after_dequeue)
 
     with tf.variable_scope('net'):

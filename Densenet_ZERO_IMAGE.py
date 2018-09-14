@@ -255,6 +255,11 @@ def train():
 
         image_data, label_data = sess.run([img_batch, label_batch])
 
+        print("image data")
+        print(image_data)
+        print("label data")
+        print(label_data)
+
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],
                                                    feed_dict={train_flag: True, image: image_data,
                                                               label: label_data})

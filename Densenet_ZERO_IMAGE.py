@@ -41,10 +41,10 @@ def read_and_decode(tf_folder):
                         'label': tf.FixedLenFeature([], tf.string)
                         })
     image = tf.decode_raw( features['image'], tf.uint8 )
-    label = tf.decode_raw( features['label'], tf.float32 )
+    label = tf.decode_raw( features['label'], tf.float64 )
     image = tf.reshape(image, [64, 64, 3])
     image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
-    label = tf.cast(tf.reshape(label, [30]), tf.float32)
+    label = tf.cast(tf.reshape(label, [30]), tf.float64)
     return image, label
 
 
@@ -200,7 +200,7 @@ class DenseNet():
 def train():
     image = tf.placeholder(shape=[None, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH], dtype=tf.float32,
                            name='image_placeholder')
-    label = tf.placeholder(shape=[None, LABEL_SIZE], dtype=tf.float32, name='label_palceholder')
+    label = tf.placeholder(shape=[None, LABEL_SIZE], dtype=tf.float64, name='label_palceholder')
 
     train_flag = tf.placeholder(dtype=tf.bool, name='flag_placeholder')
 

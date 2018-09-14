@@ -259,8 +259,10 @@ def train():
         image_data, label_data = sess.run([img_batch, label_batch])
 
         print("image data")
+        print(image.shape)
         print(image_data.shape)
         print("label data")
+        print(label.shape)
         print(label_data.shape)
 
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],

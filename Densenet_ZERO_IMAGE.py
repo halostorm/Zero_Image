@@ -202,7 +202,7 @@ class DenseNet():
 
 def train():
     x = tf.placeholder(tf.float32, shape=[None, 12288])
-    image  = tf.reshape(x, [-1, 64, 64, 1])
+    image  = tf.reshape(x, [-1, 64, 64, 3])
     # image = tf.placeholder(shape=[None, IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_DEPTH], dtype=tf.float32,
     #                        name='image_placeholder')
     label = tf.placeholder(shape=[None, LABEL_SIZE], dtype=tf.float32, name='label_palceholder')
@@ -220,7 +220,7 @@ def train():
                                                         min_after_dequeue=500)
 
     with tf.variable_scope('net'):
-        y = DenseNet(image, nb_block, growth_k, train_flag).model
+        y = DenseNet(x = image, nb_blocks=nb_block, filters = growth_k, training = train_flag).model
 
 
     with tf.name_scope('loss'):
@@ -268,7 +268,7 @@ def train():
         print(label_data.shape)
 
         _, loss_data, data, summary_str = sess.run([train_step, loss, y],
-                                                   feed_dict={train_flag: True, image: image_data,
+                                                   feed_dict={train_flag: True, x: image_data,
                                                               label: label_data})
         # print summary_str
         writer.add_summary(summary_str, i)

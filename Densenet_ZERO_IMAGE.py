@@ -235,6 +235,7 @@ def train():
         train_step = opt.minimize(loss)
 
     sess = tf.Session()
+    sess.run(tf.local_variables_initializer())
     sess.run(tf.global_variables_initializer())
     coord = tf.train.Coordinator()
     saver = tf.train.Saver()

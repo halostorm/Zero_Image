@@ -142,11 +142,11 @@ def train():
 
     print(testX.shape[0])
 
-    model.fit_generator(generator.flow(trainX, None, batch_size=batch_size),
+    model.fit_generator(generator.flow(trainX, trainY, batch_size=batch_size),
                         steps_per_epoch=len(trainX) // batch_size, epochs=nb_epoch,
                         callbacks=callbacks,
-                        validation_data=(testX, None),
-                        validation_steps=len(testX) // batch_size, verbose=1)
+                        validation_data=(testX, testY),
+                        validation_steps=testX.shape[0] // batch_size, verbose=1)
     print("train ok")
     # yPreds = model.predict(testX)
     # yPred = np.argmax(yPreds, axis=1)

@@ -20,8 +20,8 @@
       <file leaf-file-name="zero_image.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/zero_image.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="86" column="17" lean-forward="true" selection-start-line="86" selection-start-column="17" selection-end-line="86" selection-end-column="17" />
+            <state relative-caret-position="369">
+              <caret line="148" column="77" lean-forward="true" selection-start-line="148" selection-start-column="77" selection-end-line="148" selection-end-column="77" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -32,18 +32,8 @@
       <file leaf-file-name="training.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/keras/engine/training.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="1342" column="28" lean-forward="false" selection-start-line="1342" selection-start-column="12" selection-end-line="1342" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="image.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/keras_preprocessing/image.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="810" column="8" lean-forward="false" selection-start-line="810" selection-start-column="8" selection-end-line="810" selection-end-column="8" />
+            <state relative-caret-position="-197">
+              <caret line="1275" column="8" lean-forward="false" selection-start-line="1275" selection-start-column="8" selection-end-line="1275" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -64,8 +54,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>readlist</find>
-      <find>print</find>
       <find>validation_steps</find>
+      <find>print</find>
+      <find>lr_reducer</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -210,26 +201,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/keras_preprocessing/image.py">
+    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/keras/engine/training.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="810" column="8" lean-forward="false" selection-start-line="810" selection-start-column="8" selection-end-line="810" selection-end-column="8" />
+        <state relative-caret-position="-197">
+          <caret line="1275" column="8" lean-forward="false" selection-start-line="1275" selection-start-column="8" selection-end-line="1275" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/keras/engine/training.py">
+    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/keras/preprocessing/image.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="1342" column="28" lean-forward="false" selection-start-line="1342" selection-start-column="12" selection-end-line="1342" selection-end-column="28" />
+        <state relative-caret-position="289">
+          <caret line="21" column="45" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/keras_preprocessing/image.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4764">
+          <caret line="526" column="6" lean-forward="false" selection-start-line="526" selection-start-column="6" selection-end-line="526" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/zero_image.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="86" column="17" lean-forward="true" selection-start-line="86" selection-start-column="17" selection-end-line="86" selection-end-column="17" />
+        <state relative-caret-position="369">
+          <caret line="148" column="77" lean-forward="true" selection-start-line="148" selection-start-column="77" selection-end-line="148" selection-end-column="77" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

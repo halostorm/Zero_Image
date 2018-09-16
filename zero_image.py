@@ -118,12 +118,6 @@ def train():
     trainX = trainX.astype('float32')
     testX = testX.astype('float32')
 
-    # trainX = densenet.preprocess_input(trainX)
-    # testX = densenet.preprocess_input(testX)
-
-    # Y_train = np_utils.to_categorical(trainY, nb_classes)
-    # Y_test = np_utils.to_categorical(testY, nb_classes)
-
     generator = ImageDataGenerator(rotation_range=15,
                                    width_shift_range=5. / img_rows,
                                    height_shift_range=5. / img_cols,
@@ -152,7 +146,7 @@ def train():
                         steps_per_epoch=len(trainX) // batch_size, epochs=nb_epoch,
                         callbacks=callbacks,
                         validation_data=(testX, None),
-                        validation_steps=testX.shape[0] // batch_size, verbose=1)
+                        validation_steps=len(testX) // batch_size, verbose=1)
     print("train ok")
     # yPreds = model.predict(testX)
     # yPred = np.argmax(yPreds, axis=1)

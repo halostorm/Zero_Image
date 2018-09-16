@@ -83,7 +83,7 @@ def load_data(dir, path):
 
 def train():
     batch_size = 20
-    nb_classes = 10
+    nb_classes = 30
     nb_epoch = 30
 
     img_rows, img_cols = 64, 64

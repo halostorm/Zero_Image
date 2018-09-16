@@ -112,18 +112,25 @@ class Handle:
 
 
 if __name__ == '__main__':
-    image_data_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/train/'
-    train_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/train.txt'
-    attribute_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/attributes_per_class.txt'
-    word_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/class_wordembeddings.txt'
-    label_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/label_list.txt'
+    # image_data_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/train/'
+    # train_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/train.txt'
+    # attribute_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/attributes_per_class.txt'
+    # word_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/class_wordembeddings.txt'
+    # label_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_train_20180813/label_list.txt'
+    # data_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/data_train.txt'
+    # feature_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/feature_train.txt'
+    # com_train_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/com_train.txt'
 
-    data_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/data.txt'
-    feature_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/feature.txt'
+    image_data_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_test_20180813/test/'
+    test_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_test_20180813/test.txt'
+    attribute_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_test_20180813/attributes_per_class.txt'
+    word_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_test_20180813/class_wordembeddings.txt'
+    label_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/DatasetA_test_20180813/label_list.txt'
+    data_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/data_test.txt'
+    feature_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/feature_test.txt'
+    com_test_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/com_test.txt'
 
-    com_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/com.txt'
-
-    handle = Handle(image_data_path, train_path, attribute_path, word_path, label_path)
+    handle = Handle(image_data_path, test_path, attribute_path, word_path, label_path)
 
     handle.readFile1(handle.train_path)
     handle.readFile2(handle.attribute_path)
@@ -132,8 +139,8 @@ if __name__ == '__main__':
 
     # print(handle.image_label)
 
-    handle.writeFile(data_path, feature_path)
+    # handle.writeFile(data_path, feature_path)
 
-    handle.writeFileCombine(com_path)
+    handle.writeFileCombine(com_test_path)
     # handle.readFile(handle.word_path)
     # handle.readFile(handle.label_path)

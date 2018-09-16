@@ -148,15 +148,13 @@ def train():
                         validation_data=(testX, testY),
                         validation_steps=testX.shape[0] // batch_size, verbose=1)
     print("train ok")
-    # yPreds = model.predict(testX)
-    # yPred = np.argmax(yPreds, axis=1)
-    # yTrue = testY
-    #
-    # accuracy = metrics.accuracy_score(yTrue, yPred) * 100
-    # error = 100 - accuracy
-    # print("Accuracy : ", accuracy)
-    # print("Error : ", error)
+    yPred = model.predict(testX)
 
+    yTrue = testY
+
+    loss = K.mean(K.square(yPred - yTrue))
+
+    print("Accuracy : ", loss)
 
 if __name__ == '__main__':
     train()

@@ -153,15 +153,15 @@ def train():
                         callbacks=callbacks,
                         validation_data=(testX, None),
                         validation_steps=testX.shape[0] // batch_size, verbose=1)
-
-    yPreds = model.predict(testX)
-    yPred = np.argmax(yPreds, axis=1)
-    yTrue = testY
-
-    accuracy = metrics.accuracy_score(yTrue, yPred) * 100
-    error = 100 - accuracy
-    print("Accuracy : ", accuracy)
-    print("Error : ", error)
+    print("train ok")
+    # yPreds = model.predict(testX)
+    # yPred = np.argmax(yPreds, axis=1)
+    # yTrue = testY
+    #
+    # accuracy = metrics.accuracy_score(yTrue, yPred) * 100
+    # error = 100 - accuracy
+    # print("Accuracy : ", accuracy)
+    # print("Error : ", error)
 
 
 if __name__ == '__main__':

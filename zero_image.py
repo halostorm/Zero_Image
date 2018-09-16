@@ -146,6 +146,8 @@ def train():
 
     callbacks = [lr_reducer, model_checkpoint]
 
+    print(testX.shape[0])
+
     model.fit_generator(generator.flow(trainX, None, batch_size=batch_size),
                         steps_per_epoch=len(trainX) // batch_size, epochs=nb_epoch,
                         callbacks=callbacks,

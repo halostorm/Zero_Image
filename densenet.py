@@ -100,7 +100,7 @@ def DenseNet(
 
     print(x.shape)
 
-    x = Dense(nb_classes, activation='linear')(x)
+    x = Dense(nb_classes, activation='softmax')(x)
 
     return Model(img_input, x, name='densenet')
 

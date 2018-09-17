@@ -152,7 +152,7 @@ def train():
 
     # save
     model_id = np.int64(time.strftime('%Y%m%d%H%M', time.localtime(time.time())))
-    model.save(r'Zero_DenseNet.h5')
+    model.save('Zero_DenseNet_' + str(model_id) + '.h5')
 
     fig = plt.figure()  # 新建一张图
     plt.plot(history.history['acc'], label='training acc')

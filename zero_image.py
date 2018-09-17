@@ -1,6 +1,8 @@
 from __future__ import print_function
 
 import os.path
+import time
+import matplotlib.pyplot as plt
 
 import numpy as np
 import sklearn.metrics as metrics
@@ -142,11 +144,45 @@ def train():
 
     print(testX.shape[0])
 
-    model.fit_generator(generator.flow(trainX, trainY, batch_size=batch_size),
+    history = model.fit_generator(generator.flow(trainX, trainY, batch_size=batch_size),
                         steps_per_epoch=len(trainX) // batch_size, epochs=nb_epoch,
                         callbacks=callbacks,
                         validation_data=(testX, testY),
                         validation_steps=testX.shape[0] // batch_size, verbose=1)
+
+    # save
+    model_id = np.int64(time.strftime('%Y%m%d%H%M', time.localtime(time.time())))
+    model.save('./Zero' + str(model_id) + '.h5')
+
+    fig = plt.figure()  # 新建一张图
+    plt.plot(history.history['acc'], label='training acc')
+    plt.plot(history.history['val_acc'], label='val acc')
+    plt.title('model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(loc='lower right')
+    fig.savefig('Zero' + str(model_id) + 'acc.png')
+    fig = plt.figure()
+    plt.plot(history.history['loss'], label='training loss')
+    plt.plot(history.history['val_loss'], label='val loss')
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(loc='upper right')
+    fig.savefig('Zero' + str(model_id) + 'loss.png')
+
+    logFilePath = './log.txt'
+    fobj = open(logFilePath, 'a')
+    fobj.write('model id: ' + str(model_id) + '\n')
+    fobj.write('epoch: ' + str(nb_epoch) + '\n')
+    fobj.write('x_train shape: ' + str(trainX.shape) + '\n')
+    fobj.write('x_test shape: ' + str(testX.shape) + '\n')
+    fobj.write('training accuracy: ' + str(history.history['acc'][-1]) + '\n')
+    # fobj.write('model evaluation results: ' + str(score[0]) + '  ' + str(score[-1]) + '\n')
+    fobj.write('---------------------------------------------------------------------------\n')
+    fobj.write('\n')
+    fobj.close()
+
     print("train ok")
     yPred = model.predict(testX)
 
@@ -155,6 +191,8 @@ def train():
     loss = K.mean(K.square(yPred - yTrue))
 
     print("Accuracy : ", loss)
+    
+    return history
 
 if __name__ == '__main__':
-    train()
+    history = train()

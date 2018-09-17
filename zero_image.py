@@ -85,9 +85,9 @@ def load_data(dir, path):
 
 
 def train():
-    batch_size = 20
+    batch_size = 40
     nb_classes = 230
-    nb_epoch = 30
+    nb_epoch = 10
 
     img_rows, img_cols = 64, 64
     img_channels = 3
@@ -125,19 +125,17 @@ def train():
     Y_test = np_utils.to_categorical(testY, nb_classes)
 
     generator = ImageDataGenerator(rotation_range=15,
-                                   width_shift_range=5. / img_rows,
-                                   height_shift_range=5. / img_cols,
+                                   width_shift_range=10. / img_rows,
+                                   height_shift_range=10. / img_cols,
                                    horizontal_flip=True)
 
     generator.fit(trainX, seed=0)
 
     # Load model
-    weights_file = "weights/DenseNet-40-12-CIFAR10.h5"
+    weights_file = "model/Zero_DenseNet.h5"
     if os.path.exists(weights_file):
         # model.load_weights(weights_file, by_name=True)
         print("Model loaded.")
-
-    out_dir = "weights/"
 
     lr_reducer = ReduceLROnPlateau(monitor='val_acc', factor=np.sqrt(0.1),
                                    cooldown=0, patience=5, min_lr=1e-5)
@@ -154,7 +152,7 @@ def train():
 
     # save
     model_id = np.int64(time.strftime('%Y%m%d%H%M', time.localtime(time.time())))
-    model.save('./Zero' + str(model_id) + '.h5')
+    model.save('model/Zero_DenseNet_' + str(model_id) + '.h5')
 
     fig = plt.figure()  # 新建一张图
     plt.plot(history.history['acc'], label='training acc')

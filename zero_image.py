@@ -65,10 +65,10 @@ def load_data(dir, path):
         label = []
         label.append(file[1])
         label = np.array(label)
-        if count < 300:
+        if count < 120:
             data.append(image)
             labels.append(label)
-        elif count< 400:
+        elif count< 200:
             data1.append(image)
             labels1.append(label)
         count += 1
@@ -132,7 +132,7 @@ def train():
     generator.fit(trainX, seed=0)
 
     # Load model
-    weights_file = r'./model/Zero_DenseNet.h5'
+    weights_file = r'model/Zero_DenseNet.h5'
     if os.path.exists(weights_file):
         # model.load_weights(weights_file, by_name=True)
         print("Model loaded.")
@@ -152,7 +152,7 @@ def train():
 
     # save
     model_id = np.int64(time.strftime('%Y%m%d%H%M', time.localtime(time.time())))
-    model.save(r'./model/Zero_DenseNet_' + str(model_id) + r'.h5')
+    model.save(r'model/Zero_DenseNet_' + str(model_id) + r'.h5')
 
     fig = plt.figure()  # 新建一张图
     plt.plot(history.history['acc'], label='training acc')
@@ -171,7 +171,7 @@ def train():
     plt.legend(loc='upper right')
     fig.savefig('Zero' + str(model_id) + 'loss.png')
 
-    logFilePath = './log.txt'
+    logFilePath = r'log.txt'
     fobj = open(logFilePath, 'a')
     fobj.write('model id: ' + str(model_id) + '\n')
     fobj.write('epoch: ' + str(nb_epoch) + '\n')

@@ -141,6 +141,6 @@ if __name__ == '__main__':
 
     # handle.writeFile(data_path, feature_path)
 
-    handle.writeFileCombine(com_test_path)
+    handle.writeFileCombine(com_train_path)
     # handle.readFile(handle.word_path)
     # handle.readFile(handle.label_path)

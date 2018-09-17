@@ -62,7 +62,8 @@ def load_data(dir, path):
         image = img_to_array(image)
         # extract the class label from the image path and update the
         # labels list
-        label = file[1]
+        label = []
+        label.append(file[1])
         label = np.array(label)
         if count < 30000:
             data.append(image)
@@ -85,7 +86,7 @@ def load_data(dir, path):
 
 def train():
     batch_size = 20
-    nb_classes = 190
+    nb_classes = 230
     nb_epoch = 30
 
     img_rows, img_cols = 64, 64

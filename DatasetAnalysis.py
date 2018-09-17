@@ -45,6 +45,8 @@ class Handle:
 
         self.label_feature = {}
 
+        self.image_id = {}
+
         self.image_label = {}
 
     def inputImageFolder(self):
@@ -71,6 +73,12 @@ class Handle:
 
             self.label_feature[line[0]] = line[1:]
 
+    def readFile3(self, file):
+
+        for line in open(file, 'r'):
+            line = line.strip().split('\t')
+            self.label_id[line[1]] = line[0]
+
     def make_label_id(self, file, outfile):
         with open(outfile, 'w+', ) as dataF:
             count = 1
@@ -79,36 +87,28 @@ class Handle:
                 count += 1
 
     def writeFile(self, dataFile, featureFile):
-        data = []
-        feature = []
-        for i in self.image_label.keys():
-            for j in self.label_feature.keys():
-
-                if self.image_label[i] == j:
-                    data.append(i)
-                    feature.append(self.label_feature[j])
-
         with open(dataFile, 'w+', ) as dataF:
-            i = 0
-            for l in data:
-                dataF.write(str(l) + "\t" + str(i) + "\t" + "\n")
-                i += 1
+            for i in self.image_label.keys():
+                dataF.write(i+"\t")
+                label = self.image_label[i]
+                id = self.label_id[label]
+                dataF.write(id+"\t")
+        
         with open(featureFile, 'w+', ) as featureF:
-            i = 0
-            for l in feature:
-                featureF.write(str(i) + "\t")
-                for item in l:
+            for l in self.label_id.keys():
+                featureF.write(self.label_id[l] + "\t")
+                feature = self.label_feature[l]
+                for item in feature:
                     featureF.write(str(item) + "\t")
                 featureF.write("\n")
-                i += 1
 
     def writeFileCombine(self, comFile):
         data = []
         feature = []
-        for i in self.image_label.keys():
+        for i in self.image_id.keys():
             for j in self.label_feature.keys():
 
-                if self.image_label[i] == j:
+                if self.image_id[i] == j:
                     data.append(i)
                     feature.append(self.label_feature[j])
 
@@ -146,14 +146,16 @@ if __name__ == '__main__':
     handle.readFile1(handle.train_path)
     handle.readFile2(handle.attribute_path)
 
-    handle.make_label_id(handle.attribute_path, label_id_path)
+    handle.readFile3(label_id_path)
+
+    # handle.make_label_id(handle.attribute_path, label_id_path)
 
     # print(handle.label_feature)
 
-    # print(handle.image_label)
+    # print(handle.image_id)
 
     # handle.writeFile(data_path, feature_path)
 
-    handle.writeFileCombine(com_train_path)
+    # handle.writeFileCombine(com_train_path)
     # handle.readFile(handle.word_path)
     # handle.readFile(handle.label_path)

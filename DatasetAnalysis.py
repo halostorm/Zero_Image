@@ -76,6 +76,7 @@ class Handle:
             count = 1
             for line in open(file, 'r'):
                 dataF.write(str(count) + "\t" + line)
+                count += 1
 
     def writeFile(self, dataFile, featureFile):
         data = []

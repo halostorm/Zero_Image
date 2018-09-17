@@ -92,7 +92,7 @@ class Handle:
                 dataF.write(i+"\t")
                 label = self.image_label[i]
                 id = self.label_id[label]
-                dataF.write(id+"\t")
+                dataF.write(id+"\n")
         
         with open(featureFile, 'w+', ) as featureF:
             for l in self.label_id.keys():

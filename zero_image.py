@@ -62,8 +62,8 @@ def load_data(dir, path):
         image = img_to_array(image)
         # extract the class label from the image path and update the
         # labels list
-        label = file[1:31]
-        label = np.array(label)
+        label = file[1]
+        # label = np.array(label)
         if count < 30000:
             data.append(image)
             labels.append(label)
@@ -85,7 +85,7 @@ def load_data(dir, path):
 
 def train():
     batch_size = 20
-    nb_classes = 30
+    nb_classes = 190
     nb_epoch = 30
 
     img_rows, img_cols = 64, 64
@@ -104,7 +104,7 @@ def train():
 
     model.summary()
     optimizer = Adam(lr=1e-3)  # Using Adam instead of SGD to speed up training
-    model.compile(loss=losses.mean_squared_error, optimizer=optimizer, metrics=["accuracy"])
+    model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=["accuracy"])
     print("Finished compiling")
     print("Building model...")
 
@@ -184,13 +184,15 @@ def train():
     fobj.close()
 
     print("train ok")
-    yPred = model.predict(testX)
 
+    yPreds = model.predict(testX)
+    yPred = np.argmax(yPreds, axis=1)
     yTrue = testY
 
-    loss = K.mean(K.square(yPred - yTrue))
-
-    print("Accuracy : ", loss)
+    accuracy = metrics.accuracy_score(yTrue, yPred) * 100
+    error = 100 - accuracy
+    print("Accuracy : ", accuracy)
+    print("Error : ", error)
     
     return history
 

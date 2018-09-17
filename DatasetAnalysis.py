@@ -41,6 +41,8 @@ class Handle:
         self.word = None
         self.label = None
 
+        self.label_id = {}
+
         self.label_feature = {}
 
         self.image_label = {}
@@ -68,6 +70,12 @@ class Handle:
             line = line.strip().split('\t')
 
             self.label_feature[line[0]] = line[1:]
+
+    def make_label_id(self, file, outfile):
+        with open(outfile, 'w+', ) as dataF:
+            count = 1
+            for line in open(file, 'r'):
+                dataF.write(str(count) + "\t" + line)
 
     def writeFile(self, dataFile, featureFile):
         data = []
@@ -117,6 +125,8 @@ if __name__ == '__main__':
     attribute_path = r'../DatasetA_train_20180813/attributes_per_class.txt'
     word_path = r'../DatasetA_train_20180813/class_wordembeddings.txt'
     label_path = r'../DatasetA_train_20180813/label_list.txt'
+
+    label_id_path = r'../data/label.txt'
     data_path = r'../data/data_train.txt'
     feature_path = r'../data/feature_train.txt'
     com_train_path = r'../data/com_train.txt'
@@ -134,6 +144,8 @@ if __name__ == '__main__':
 
     handle.readFile1(handle.train_path)
     handle.readFile2(handle.attribute_path)
+
+    handle.make_label_id(handle.attribute_path, label_id_path)
 
     # print(handle.label_feature)
 

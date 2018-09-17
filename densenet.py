@@ -98,6 +98,8 @@ def DenseNet(
     x = Activation('relu')(x)
     x = GlobalAveragePooling2D()(x)
 
+    print(x.shape)
+
     x = Dense(nb_classes, activation='linear')(x)
 
     return Model(img_input, x, name='densenet')

@@ -117,9 +117,9 @@ if __name__ == '__main__':
     attribute_path = r'../DatasetA_train_20180813/attributes_per_class.txt'
     word_path = r'../DatasetA_train_20180813/class_wordembeddings.txt'
     label_path = r'../DatasetA_train_20180813/label_list.txt'
-    data_path = r'../ZERO_IMAGE/data/data_train.txt'
-    feature_path = r'../ZERO_IMAGE/data/feature_train.txt'
-    com_train_path = r'../ZERO_IMAGE/data/com_train.txt'
+    data_path = r'../data/data_train.txt'
+    feature_path = r'../data/feature_train.txt'
+    com_train_path = r'../data/com_train.txt'
 
     # image_data_path = r'../DatasetA_test_20180813/test/'
     # test_path = r'../DatasetA_test_20180813/test.txt'

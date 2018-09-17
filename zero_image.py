@@ -132,7 +132,7 @@ def train():
     generator.fit(trainX, seed=0)
 
     # Load model
-    weights_file = "model/Zero_DenseNet.h5"
+    weights_file = "./model/Zero_DenseNet.h5"
     if os.path.exists(weights_file):
         # model.load_weights(weights_file, by_name=True)
         print("Model loaded.")
@@ -152,7 +152,7 @@ def train():
 
     # save
     model_id = np.int64(time.strftime('%Y%m%d%H%M', time.localtime(time.time())))
-    model.save('model/Zero_DenseNet_' + str(model_id) + '.h5')
+    model.save('./model/Zero_DenseNet_' + str(model_id) + '.h5')
 
     fig = plt.figure()  # 新建一张图
     plt.plot(history.history['acc'], label='training acc')

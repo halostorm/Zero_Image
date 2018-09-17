@@ -27,7 +27,7 @@ import densenet
 
 norm_size = 64
 train_file_path = r'../DatasetA_train_20180813/train/'
-com_path = r'../data/com.txt'
+com_path = r'../data/data_train.txt'
 
 
 def load_data(dir, path):
@@ -62,7 +62,7 @@ def load_data(dir, path):
         image = img_to_array(image)
         # extract the class label from the image path and update the
         # labels list
-        label = file[1]
+        label = int(file[1])
         # label = np.array(label)
         if count < 30000:
             data.append(image)

@@ -65,10 +65,10 @@ def load_data(dir, path):
         label = []
         label.append(file[1])
         label = np.array(label)
-        if count < 120:
+        if count < 32000:
             data.append(image)
             labels.append(label)
-        elif count< 200:
+        else:
             data1.append(image)
             labels1.append(label)
         count += 1
@@ -85,9 +85,9 @@ def load_data(dir, path):
 
 
 def train():
-    batch_size = 50
+    batch_size = 32
     nb_classes = 230
-    nb_epoch = 10
+    nb_epoch = 15
 
     img_rows, img_cols = 64, 64
     img_channels = 3

@@ -130,7 +130,7 @@ if __name__ == '__main__':
     # feature_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/feature_test.txt'
     # com_test_path = r'/home/halo/Workspace/ALi_ZhiJiang_Competation/ZERO_IMAGE/data/com_test.txt'
 
-    handle = Handle(image_data_path, test_path, attribute_path, word_path, label_path)
+    handle = Handle(image_data_path, train_path, attribute_path, word_path, label_path)
 
     handle.readFile1(handle.train_path)
     handle.readFile2(handle.attribute_path)

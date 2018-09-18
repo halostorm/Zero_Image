@@ -124,7 +124,11 @@ class Handle:
         with open(file, 'r', ) as dataF:
             for line in dataF:
                 line = line.strip().split("\t")
-                label[line[1]] = line[1]
+                label[int(line[1])] = line[1]
+
+            sorted(label.keys())
+            for i in label.keys():
+                print(i)
         print(len(label))
 
 

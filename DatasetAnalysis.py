@@ -160,6 +160,8 @@ if __name__ == '__main__':
 
     handle.writeFile(data_path,feature_path)
 
+    handle.test(data_path)
+
     # handle.make_label_id(handle.attribute_path, label_id_path)
 
     # print(handle.label_feature)

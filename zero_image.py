@@ -154,22 +154,6 @@ def train():
     model_id = np.int64(time.strftime('%Y%m%d%H%M', time.localtime(time.time())))
     model.save('Zero_DenseNet_' + str(model_id) + '.h5')
 
-    fig = plt.figure()  # 新建一张图
-    plt.plot(history.history['acc'], label='training acc')
-    plt.plot(history.history['val_acc'], label='val acc')
-    plt.title('model accuracy')
-    plt.ylabel('accuracy')
-    plt.xlabel('epoch')
-    plt.legend(loc='lower right')
-    fig.savefig('Zero' + str(model_id) + 'acc.png')
-    fig = plt.figure()
-    plt.plot(history.history['loss'], label='training loss')
-    plt.plot(history.history['val_loss'], label='val loss')
-    plt.title('model loss')
-    plt.ylabel('loss')
-    plt.xlabel('epoch')
-    plt.legend(loc='upper right')
-    fig.savefig('Zero' + str(model_id) + 'loss.png')
 
     logFilePath = r'log.txt'
     fobj = open(logFilePath, 'a')

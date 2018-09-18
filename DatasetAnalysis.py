@@ -119,6 +119,16 @@ class Handle:
                     dataF.write(str(j) + "\t")
                 dataF.write("\n")
 
+    def test(self,file):
+        label = {}
+        with open(file, 'r', ) as dataF:
+            for line in dataF:
+                line = line.strip().split("\t")
+                label[line[1]] = line[1]
+        print(len(label))
+
+
+
 
 if __name__ == '__main__':
     image_data_path = r'../DatasetA_train_20180813/train/'

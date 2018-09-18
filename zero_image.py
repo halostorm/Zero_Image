@@ -87,7 +87,7 @@ def load_data(dir, path):
 def train():
     batch_size = 32
     nb_classes = 230
-    nb_epoch = 15
+    nb_epoch = 30
 
     img_rows, img_cols = 64, 64
     img_channels = 3
@@ -134,7 +134,7 @@ def train():
     # Load model
     weights_file = r'Zero_DenseNet.h5'
     if os.path.exists(weights_file):
-        # model.load_weights(weights_file, by_name=True)
+        model.load_weights(weights_file, by_name=True)
         print("Model loaded.")
 
     lr_reducer = ReduceLROnPlateau(monitor='val_acc', factor=np.sqrt(0.1),

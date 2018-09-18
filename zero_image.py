@@ -97,7 +97,7 @@ def train():
     depth = 40
     nb_dense_block = 3
     growth_rate = 12
-    dropout_rate = 0.3  # 0.0 for data augmentation
+    dropout_rate = 0.0  # 0.0 for data augmentation
 
     model = densenet.DenseNet(input_shape=img_dim, nb_classes=nb_classes, depth=depth, dense_blocks=nb_dense_block,
                               growth_rate=growth_rate, dropout_rate=dropout_rate)

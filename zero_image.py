@@ -65,10 +65,10 @@ def load_data(dir, path):
         label = []
         label.append(file[1])
         label = np.array(label)
-        if count < 32000:
+        if count < 3000:
             data.append(image)
             labels.append(label)
-        else:
+        elif count <3500:
             data1.append(image)
             labels1.append(label)
         count += 1

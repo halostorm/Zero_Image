@@ -135,16 +135,16 @@ class Handle:
 
 
 if __name__ == '__main__':
-    image_data_path = r'../DatasetA_train_20180813/train/'
-    train_path = r'../DatasetA_train_20180813/train.txt'
-    attribute_path = r'../DatasetA_train_20180813/attributes_per_class.txt'
-    word_path = r'../DatasetA_train_20180813/class_wordembeddings.txt'
-    label_path = r'../DatasetA_train_20180813/label_list.txt'
+    image_data_path = r'../DatasetB_20180919/train/'
+    train_path = r'../DatasetB_20180919/train.txt'
+    attribute_path = r'../DatasetB_20180919/attributes_per_class.txt'
+    word_path = r'../DatasetB_20180919/class_wordembeddings.txt'
+    label_path = r'../DatasetB_20180919/label_list.txt'
 
-    label_id_path = r'../data/label.txt'
-    data_path = r'../data/data_train.txt'
-    feature_path = r'../data/feature_train.txt'
-    com_train_path = r'../data/com_train.txt'
+    label_id_path = r'../dataB/label.txt'
+    data_path = r'../dataB/data_train.txt'
+    feature_path = r'../dataB/feature_train.txt'
+    com_train_path = r'../dataB/com_train.txt'
 
     # image_data_path = r'../DatasetA_test_20180813/test/'
     # test_path = r'../DatasetA_test_20180813/test.txt'
@@ -164,9 +164,9 @@ if __name__ == '__main__':
 
     handle.writeFile(data_path,feature_path)
 
-    handle.test(data_path)
+    # handle.test(data_path)
 
-    # handle.make_label_id(handle.attribute_path, label_id_path)
+    handle.make_label_id(handle.attribute_path, label_id_path)
 
     # print(handle.label_feature)
 
@@ -174,6 +174,6 @@ if __name__ == '__main__':
 
     # handle.writeFile(data_path, feature_path)
 
-    # handle.writeFileCombine(com_train_path)
+    handle.writeFileCombine(com_train_path)
     # handle.readFile(handle.word_path)
     # handle.readFile(handle.label_path)

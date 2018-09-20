@@ -93,7 +93,7 @@ def predict(labelPath, outputPath):
 
     model.summary()
     optimizer = Adam(lr=1e-4)  # Using Adam instead of SGD to speed up training
-    model.compile(loss=losses.mean_absolute_error(), optimizer=optimizer, metrics=["accuracy"])
+    model.compile(loss=losses.mean_absolute_error, optimizer=optimizer, metrics=["accuracy"])
     print("Finished compiling")
     print("Building model...")
 

@@ -29,7 +29,7 @@ import cv2
 
 batch_size = 32
 nb_classes = 30
-nb_epoch = 15
+nb_epoch = 50
 
 img_rows, img_cols = 64, 64
 img_channels = 3

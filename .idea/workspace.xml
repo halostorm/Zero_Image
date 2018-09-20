@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00d4ca03-83b3-4ed4-9b00-d2dc5e4ccd27" name="Default" comment="" />
+    <list default="true" id="00d4ca03-83b3-4ed4-9b00-d2dc5e4ccd27" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/zero_pre.py" afterPath="$PROJECT_DIR$/zero_pre.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/zero_reg.py" afterPath="$PROJECT_DIR$/zero_reg.py" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +18,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="zero_reg.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="zero_reg.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/zero_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="78" column="29" lean-forward="true" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
+            <state relative-caret-position="250">
+              <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -27,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zero_pre.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="zero_pre.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/zero_pre.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="123" column="35" lean-forward="true" selection-start-line="123" selection-start-column="35" selection-end-line="123" selection-end-column="35" />
+            <state relative-caret-position="2134">
+              <caret line="140" column="15" lean-forward="true" selection-start-line="140" selection-start-column="15" selection-end-line="140" selection-end-column="15" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -96,8 +99,8 @@
         <option value="$PROJECT_DIR$/zero_image.py" />
         <option value="$PROJECT_DIR$/combineAB.py" />
         <option value="$PROJECT_DIR$/DatasetAnalysis.py" />
-        <option value="$PROJECT_DIR$/zero_reg.py" />
         <option value="$PROJECT_DIR$/zero_pre.py" />
+        <option value="$PROJECT_DIR$/zero_reg.py" />
       </list>
     </option>
   </component>
@@ -561,20 +564,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/zero_reg.py">
+    <entry file="file://$PROJECT_DIR$/zero_pre.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="78" column="29" lean-forward="true" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
+        <state relative-caret-position="2134">
+          <caret line="140" column="15" lean-forward="true" selection-start-line="140" selection-start-column="15" selection-end-line="140" selection-end-column="15" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/zero_pre.py">
+    <entry file="file://$PROJECT_DIR$/zero_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="123" column="35" lean-forward="true" selection-start-line="123" selection-start-column="35" selection-end-line="123" selection-end-column="35" />
+        <state relative-caret-position="250">
+          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

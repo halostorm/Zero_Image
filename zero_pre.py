@@ -43,8 +43,8 @@ bottleneck = True
 reduction = 0.0
 dropout_rate = 0.0  # 0.0 for data augmentation
 
-train_file_path = r'/home/wenwen/Workspace/DatasetA_test_20180813/test/'
-com_path = r'/home/wenwen/Workspace/DatasetA_test_20180813/image.txt'
+train_file_path = r'../DatasetB_20180919/test/'
+com_path = r'../DatasetB_20180919/image.txt'
 
 
 def load_data(dir, path):
@@ -82,7 +82,7 @@ def predict(labelPath,outputPath):
         for line in f:
             line = line.split('\t')
             line = np.array(line)
-            label[line[1]] = np.array(line[2:32])
+            label[line[0]] = np.array(line[1:31])
 
 
     model = densenet_reg.DenseNetImageNet264(input_shape=img_dim, classes=nb_classes)
@@ -100,7 +100,7 @@ def predict(labelPath,outputPath):
 
     testX = testX.astype('float32')
 
-    weights_file = r'Zero_DenseNet_Reg.h5'
+    weights_file = r'../dataB/Zero_DenseNet_Reg.h5'
     if os.path.exists(weights_file):
         model.load_weights(weights_file, by_name=True)
         print("Model loaded.")
@@ -138,4 +138,4 @@ def Loss(yPre,yLabel):
 
 
 if __name__ == '__main__':
-    predict(r'../data/label.txt', r'./out.txt')
+    predict(r'../DatasetB_20180919/attributes_per_class.txt', r'./outB.txt')

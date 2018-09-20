@@ -43,8 +43,8 @@ bottleneck = True
 reduction = 0.0
 dropout_rate = 0.0  # 0.0 for data augmentation
 
-train_file_path = r'../DatasetA_train_20180813/train/'
-com_path = r'../data/com_train.txt'
+train_file_path = r'../DatasetB_20180919/train/'
+com_path = r'../dataB/com_train.txt'
 
 
 def load_data(dir, path):
@@ -155,7 +155,7 @@ def train():
                                   nb_val_samples=testX.shape[0], verbose=1)
 
     model_id = np.int64(time.strftime('%Y%m%d%H%M', time.localtime(time.time())))
-    model.save('Zero_DenseNet_Reg' + str(model_id) + '.h5')
+    model.save('../dataB/Zero_DenseNet_Reg' + str(model_id) + '.h5')
 
     yPred = model.predict(testX)
     yTrue = testY

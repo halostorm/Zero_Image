@@ -110,7 +110,7 @@ def train():
     # print("Model created")
 
     model.summary()
-    optimizer = Adam(lr=1e-4)  # Using Adam instead of SGD to speed up training
+    optimizer = Adam(lr=1e-3)  # Using Adam instead of SGD to speed up training
     model.compile(loss=losses.cosine_proximity, optimizer=optimizer, metrics=["accuracy"])
     print("Finished compiling")
     print("Building model...")

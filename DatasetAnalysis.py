@@ -162,7 +162,7 @@ if __name__ == '__main__':
 
     # print(handle.image_id)
 
-    handle.writeFile(data_path, feature_path)
+    #handle.writeFile(data_path, feature_path)
 
     handle.writeFileCombine(com_train_path)
     # handle.readFile(handle.word_path)

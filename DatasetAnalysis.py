@@ -162,7 +162,7 @@ if __name__ == '__main__':
 
     # handle.readFile3(label_id_path)
 
-    handle.writeFile(data_path,feature_path)
+    # handle.writeFile(data_path,feature_path)
 
     # handle.test(data_path)
 

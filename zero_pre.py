@@ -121,10 +121,10 @@ def predict(labelPath, outputPath):
                     if loss > nLoss:
                         loss = nLoss
                         id = l
-                        # lis = yPred
+                lis = str(yPred[i])
                 # print('Loss-------------------\t' + str(loss))
                 # print('Id-------------------\t' + str(id))
-                out.write(filelist[i] + '\t' + id + '\n')
+                out.write(filelist[i] + '\t' + lis + '\n')
 
 
 def Loss(yPre, yLabel):

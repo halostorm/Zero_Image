@@ -55,7 +55,7 @@ def load_data(dir, path):
     count = 0
     with open(path, 'r') as f:
         for line in f:
-            if count < 3:
+            if True:
                 filelist.append(line.rstrip('\n'))
             count += 1
     # loop over the input images
@@ -117,13 +117,13 @@ def predict(labelPath, outputPath):
                 lis = None
                 for l in label.keys():
                     nLoss = Loss(yPred[i], label[l])
-                    print('nLoss:\t' + str(nLoss))
+                    # print('nLoss:\t' + str(nLoss))
                     if loss > nLoss:
                         loss = nLoss
                         id = l
                         # lis = yPred
-                print('Loss-------------------\t' + str(loss))
-                print('Id-------------------\t' + str(id))
+                # print('Loss-------------------\t' + str(loss))
+                # print('Id-------------------\t' + str(id))
                 out.write(filelist[i] + '\t' + id + '\n')
 
 

@@ -43,8 +43,8 @@ bottleneck = True
 reduction = 0.0
 dropout_rate = 0.0  # 0.0 for data augmentation
 
-train_file_path = r'../DatasetB_20180919/test/'
-com_path = r'../DatasetB_20180919/image.txt'
+train_file_path = r'../DatasetA_train_20180813/train/'
+com_path = r'../DatasetA_train_20180813/train.txt'
 
 
 def load_data(dir, path):
@@ -55,8 +55,8 @@ def load_data(dir, path):
     count = 0
     with open(path, 'r') as f:
         for line in f:
-            if True:
-                filelist.append(line.rstrip('\n'))
+            if count<100:
+                filelist.append(line.rstrip('\n').split('\t')[0])
             count += 1
     # loop over the input images
     for file in filelist:
@@ -142,4 +142,4 @@ def Loss(yPre, yLabel):
 
 
 if __name__ == '__main__':
-    predict(r'../DatasetB_20180919/attributes_per_class.txt', r'./outB.txt')
+    predict(r'../DatasetB_20180919/attributes_per_class.txt', r'./outT.txt')

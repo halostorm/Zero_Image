@@ -52,30 +52,31 @@ def load_data(dir, path):
     data = []
     filelist = []
     # grab the image paths and randomly shuffle them
+    count = 0
     with open(path, 'r') as f:
         for line in f:
-            # print(line)
-            filelist.append(line.rstrip('\n'))
+            if count < 3:
+                filelist.append(line.rstrip('\n'))
+            count += 1
     # loop over the input images
     for file in filelist:
         # load the image, pre-process it, and store it in the data list
 
-            imagePath = dir + file
+        imagePath = dir + file
 
-            # print(imagePath)
-            image = cv2.imread(imagePath)
-            image = cv2.resize(image, (img_rows, img_cols))
-            image = img_to_array(image)
+        # print(imagePath)
+        image = cv2.imread(imagePath)
+        image = cv2.resize(image, (img_rows, img_cols))
+        image = img_to_array(image)
 
-            data.append(image)
+        data.append(image)
     # scale the raw pixel intensities to the range [0, 1]
     data = np.array(data, dtype="float") / 255.0
 
     return data, filelist
 
 
-def predict(labelPath,outputPath):
-
+def predict(labelPath, outputPath):
     label = {}
 
     with open(labelPath, 'r') as f:
@@ -83,7 +84,6 @@ def predict(labelPath,outputPath):
             line = line.split('\t')
             line = np.array(line)
             label[line[0]] = np.array(line[1:31])
-
 
     model = densenet_reg.DenseNetImageNet264(input_shape=img_dim, classes=nb_classes)
     print("Model created")
@@ -113,17 +113,18 @@ def predict(labelPath,outputPath):
                 id = None
                 lis = None
                 for l in label.keys():
-                    nLoss = Loss(yPred[i],label[l])
+                    nLoss = Loss(yPred[i], label[l])
+                    print('nLoss:\t' + str(nLoss))
                     if loss > nLoss:
                         loss = nLoss
                         id = l
-                        lis = yPred
-                out.write(filelist[i]+'\t'+id+'\n')
+                        # lis = yPred
+                print('Loss-------------------\t' + str(loss))
+                print('Id-------------------\t' + str(id))
+                out.write(filelist[i] + '\t' + id + '\n')
 
 
-
-
-def Loss(yPre,yLabel):
+def Loss(yPre, yLabel):
     loss = 0
 
     yPre = yPre.astype('float32')

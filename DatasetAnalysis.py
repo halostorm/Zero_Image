@@ -49,16 +49,6 @@ class Handle:
 
         self.image_label = {}
 
-    def inputImageFolder(self):
-        print()
-        for root, dirs, fileName in os.walk(self.image_data_path):
-            for i in fileName:
-                file = os.path.join(root, i)
-                self.readImage(file)
-
-    def readImage(self, file):
-        print()
-
     def readFile1(self, file):
 
         for line in open(file, 'r'):
@@ -105,10 +95,10 @@ class Handle:
     def writeFileCombine(self, comFile):
         data = []
         feature = []
-        for i in self.image_id.keys():
+        for i in self.image_label.keys():
             for j in self.label_feature.keys():
 
-                if self.image_id[i] == j:
+                if self.image_label[i] == j:
                     data.append(i)
                     feature.append(self.label_feature[j])
 

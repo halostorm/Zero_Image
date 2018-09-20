@@ -81,7 +81,7 @@ def load_data(dir, path):
         # labels list
         label = file[1:31]
         label = np.array(label)
-        if count < 32000:
+        if count < 85000:
             data.append(image)
             labels.append(label)
         else:
@@ -111,7 +111,7 @@ def train():
 
     model.summary()
     optimizer = Adam(lr=1e-4)  # Using Adam instead of SGD to speed up training
-    model.compile(loss=losses.mean_squared_error, optimizer=optimizer, metrics=["accuracy"])
+    model.compile(loss=losses.mean_absolute_error, optimizer=optimizer, metrics=["accuracy"])
     print("Finished compiling")
     print("Building model...")
 
@@ -158,9 +158,9 @@ def train():
     model.save('../dataB/Zero_DenseNet_Reg' + str(model_id) + '.h5')
 
     yPred = model.predict(testX)
-    yTrue = testY
+    yTrue = testY.astype('float32')
 
-    loss = np.mean(np.square(yPred-yTrue))
+    loss = np.mean(np.abs(yPred-yTrue))
 
     print("test loss:\t"+str(loss))
 

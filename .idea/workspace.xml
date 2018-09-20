@@ -20,8 +20,8 @@
       <file leaf-file-name="zero_reg.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/zero_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="846">
-              <caret line="104" column="33" lean-forward="false" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="33" />
+            <state relative-caret-position="242">
+              <caret line="106" column="87" lean-forward="false" selection-start-line="104" selection-start-column="4" selection-end-line="106" selection-end-column="87" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -32,8 +32,8 @@
       <file leaf-file-name="zero_pre.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/zero_pre.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="59" column="22" lean-forward="false" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+            <state relative-caret-position="169">
+              <caret line="101" column="22" lean-forward="true" selection-start-line="101" selection-start-column="22" selection-end-line="101" selection-end-column="22" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -565,8 +565,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/zero_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="846">
-          <caret line="104" column="33" lean-forward="false" selection-start-line="104" selection-start-column="25" selection-end-line="104" selection-end-column="33" />
+        <state relative-caret-position="242">
+          <caret line="106" column="87" lean-forward="false" selection-start-line="104" selection-start-column="4" selection-end-line="106" selection-end-column="87" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -575,8 +575,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/zero_pre.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="59" column="22" lean-forward="false" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
+        <state relative-caret-position="169">
+          <caret line="101" column="22" lean-forward="true" selection-start-line="101" selection-start-column="22" selection-end-line="101" selection-end-column="22" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>

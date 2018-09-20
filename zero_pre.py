@@ -85,12 +85,15 @@ def predict(labelPath, outputPath):
             line = np.array(line)
             label[line[0]] = np.array(line[1:31])
 
-    model = densenet_reg.DenseNetImageNet264(input_shape=img_dim, classes=nb_classes)
+    # model = densenet_reg.DenseNetImageNet264(input_shape=img_dim, classes=nb_classes)
+    model = densenet_reg.DenseNet(img_dim, classes=nb_classes, depth=depth, nb_dense_block=nb_dense_block,
+                                  growth_rate=growth_rate, nb_filter=nb_filter, dropout_rate=dropout_rate,
+                                  bottleneck=bottleneck, reduction=reduction, weights=None)
     print("Model created")
 
     model.summary()
     optimizer = Adam(lr=1e-4)  # Using Adam instead of SGD to speed up training
-    model.compile(loss=losses.mean_squared_error, optimizer=optimizer, metrics=["accuracy"])
+    model.compile(loss=losses.mean_absolute_error(), optimizer=optimizer, metrics=["accuracy"])
     print("Finished compiling")
     print("Building model...")
 

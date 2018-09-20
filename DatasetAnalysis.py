@@ -160,13 +160,13 @@ if __name__ == '__main__':
     handle.readFile1(handle.train_path)
     handle.readFile2(handle.attribute_path)
 
-    handle.readFile3(label_id_path)
+    # handle.readFile3(label_id_path)
 
     handle.writeFile(data_path,feature_path)
 
     # handle.test(data_path)
 
-    handle.make_label_id(handle.attribute_path, label_id_path)
+    # handle.make_label_id(handle.attribute_path, label_id_path)
 
     # print(handle.label_feature)
 

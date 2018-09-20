@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00d4ca03-83b3-4ed4-9b00-d2dc5e4ccd27" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/zero_pre.py" afterPath="$PROJECT_DIR$/zero_pre.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/zero_reg.py" afterPath="$PROJECT_DIR$/zero_reg.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +20,8 @@
       <file leaf-file-name="zero_reg.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/zero_reg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+            <state relative-caret-position="142">
+              <caret line="113" column="49" lean-forward="false" selection-start-line="113" selection-start-column="49" selection-end-line="113" selection-end-column="49" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -576,8 +575,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/zero_reg.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="31" column="13" lean-forward="false" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+        <state relative-caret-position="142">
+          <caret line="113" column="49" lean-forward="false" selection-start-line="113" selection-start-column="49" selection-end-line="113" selection-end-column="49" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
